@@ -1,0 +1,21 @@
+{
+  "overview": "A personal calendar app with a full month view where you can add notes and events to any day. Navigate between months freely, and each month fills the entire screen.",
+  "features": [
+    "Full-screen month grid view",
+    "Add events and notes to any day",
+    "Navigate between months with prev/next buttons",
+    "Today highlighted on the calendar",
+    "Day detail view with event list",
+    "Persistent event storage"
+  ],
+  "category": "productivity",
+  "tags": [
+    "calendar",
+    "agenda",
+    "personal",
+    "productivity",
+    "events",
+    "notes"
+  ],
+  "last_updated": "2026-04-08T10:22:49.047Z"
+}

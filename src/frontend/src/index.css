@@ -1,0 +1,151 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --font-display: "Fraunces", serif;
+    --font-body: "DM Sans", sans-serif;
+    --font-mono: "Geist Mono", monospace;
+    --radius: 0.25rem;
+
+    --background: 0.97 0.01 264;
+    --foreground: 0.25 0.03 264;
+    --card: 0.99 0.01 264;
+    --card-foreground: 0.25 0.03 264;
+    --popover: 0.99 0.01 264;
+    --popover-foreground: 0.25 0.03 264;
+
+    --primary: 0.58 0.16 79;
+    --primary-foreground: 0.99 0.01 264;
+
+    --secondary: 0.92 0.02 264;
+    --secondary-foreground: 0.35 0.03 264;
+    --muted: 0.92 0.02 264;
+    --muted-foreground: 0.55 0.02 264;
+
+    --accent: 0.68 0.18 70;
+    --accent-foreground: 0.99 0.01 264;
+
+    --destructive: 0.55 0.22 25;
+    --destructive-foreground: 0.98 0 0;
+
+    --border: 0.93 0.01 264;
+    --input: 0.93 0.01 264;
+    --ring: 0.68 0.18 70;
+
+    --chart-1: 0.68 0.18 70;
+    --chart-2: 0.58 0.16 79;
+    --chart-3: 0.5 0.12 192;
+    --chart-4: 0.62 0.14 248;
+    --chart-5: 0.55 0.1 128;
+
+    --sidebar: 0.99 0.01 264;
+    --sidebar-foreground: 0.25 0.03 264;
+    --sidebar-primary: 0.58 0.16 79;
+    --sidebar-primary-foreground: 0.99 0.01 264;
+    --sidebar-accent: 0.92 0.02 264;
+    --sidebar-accent-foreground: 0.35 0.03 264;
+    --sidebar-border: 0.93 0.01 264;
+    --sidebar-ring: 0.68 0.18 70;
+  }
+
+  .dark {
+    --background: 0.15 0.01 264;
+    --foreground: 0.92 0.02 264;
+    --card: 0.18 0.01 264;
+    --card-foreground: 0.92 0.02 264;
+    --popover: 0.22 0.01 264;
+    --popover-foreground: 0.92 0.02 264;
+
+    --primary: 0.72 0.14 70;
+    --primary-foreground: 0.15 0.01 264;
+
+    --secondary: 0.22 0.01 264;
+    --secondary-foreground: 0.85 0.02 264;
+    --muted: 0.22 0.01 264;
+    --muted-foreground: 0.55 0.02 264;
+
+    --accent: 0.72 0.14 70;
+    --accent-foreground: 0.15 0.01 264;
+
+    --destructive: 0.65 0.19 22;
+    --destructive-foreground: 0.15 0.01 264;
+
+    --border: 0.28 0.01 264;
+    --input: 0.28 0.01 264;
+    --ring: 0.72 0.14 70;
+
+    --chart-1: 0.72 0.14 70;
+    --chart-2: 0.62 0.16 79;
+    --chart-3: 0.65 0.15 192;
+    --chart-4: 0.68 0.16 248;
+    --chart-5: 0.58 0.12 128;
+
+    --sidebar: 0.18 0.01 264;
+    --sidebar-foreground: 0.92 0.02 264;
+    --sidebar-primary: 0.72 0.14 70;
+    --sidebar-primary-foreground: 0.15 0.01 264;
+    --sidebar-accent: 0.22 0.01 264;
+    --sidebar-accent-foreground: 0.85 0.02 264;
+    --sidebar-border: 0.28 0.01 264;
+    --sidebar-ring: 0.72 0.14 70;
+  }
+
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground font-body antialiased;
+  }
+}
+
+@font-face {
+  font-family: "Fraunces";
+  src: url("/assets/fonts/Fraunces.woff2") format("woff2");
+  font-weight: 400 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "DM Sans";
+  src: url("/assets/fonts/DMSans.woff2") format("woff2");
+  font-weight: 400 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Geist Mono";
+  src: url("/assets/fonts/GeistMono.woff2") format("woff2");
+  font-weight: 400 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@layer utilities {
+  .transition-smooth {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .day-cell {
+    @apply min-h-20 p-2 bg-card border border-border rounded-sm hover:bg-secondary/40 transition-smooth;
+  }
+
+  .day-number {
+    @apply text-xs font-semibold text-muted-foreground mb-1;
+  }
+
+  .event-badge {
+    @apply inline-block px-1.5 py-0.5 bg-accent text-accent-foreground text-xs rounded-sm font-medium;
+  }
+
+  .today-highlight {
+    @apply border-l-4 border-accent;
+  }
+
+  .month-header {
+    @apply font-display text-2xl font-semibold text-foreground;
+  }
+}

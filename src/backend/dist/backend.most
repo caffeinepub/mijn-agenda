@@ -1,0 +1,35 @@
+// Version: 1.0.0
+type Data__791452850<K, V> =
+  {var count : Nat__490723111; kvs : [var ?(K, V)]};
+type DateKey__160924750 = Text;
+type EventId__721739344 = Nat;
+type Event__543096582 =
+  {
+    createdAt : Int;
+    description : ?Text;
+    id : EventId__721739344;
+    title : Text
+  };
+type Internal__8484328<K, V> =
+  {children : [var ?Node__46230540<K, V>]; data : Data__791452850<K, V>};
+type Leaf__809889148<K, V> = {data : Data__791452850<K, V>};
+type List__415060402<T> = List__790383201<T>;
+type List__790383201<T> =
+  {
+    var blockIndex : Nat__490723111;
+    var blocks : [var [var ?T]];
+    var elementIndex : Nat__490723111
+  };
+type Nat__490723111 = Nat__920180692;
+type Nat__920180692 = Nat;
+type Node__46230540<K, V> =
+  {#internal : Internal__8484328<K, V>; #leaf : Leaf__809889148<K, V>};
+actor {
+  stable events :
+    {
+      var root :
+        Node__46230540<DateKey__160924750, List__415060402<Event__543096582>>;
+      var size : Nat__490723111
+    };
+  stable nextEventId : {var value : Nat}
+};

@@ -1,0 +1,25 @@
+type EventInput = 
+ record {
+   description: opt text;
+   title: text;
+ };
+type EventId = nat;
+type Event = 
+ record {
+   createdAt: int;
+   description: opt text;
+   id: EventId;
+   title: text;
+ };
+type DayEvents = 
+ record {
+   dateKey: DateKey;
+   events: vec Event;
+ };
+type DateKey = text;
+service : {
+  addEvent: (dateKey: DateKey, input: EventInput) -> (EventId);
+  deleteEvent: (eventId: EventId) -> ();
+  getEvents: (dateKey: DateKey) -> (vec Event) query;
+  getEventsByMonth: (year: nat, month: nat) -> (vec DayEvents) query;
+}
