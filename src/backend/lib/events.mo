@@ -17,6 +17,7 @@ module {
       id;
       title = input.title;
       description = input.description;
+      color = switch (input.color) { case (?c) ?c; case null ?"green" };
       createdAt = Time.now();
     };
 

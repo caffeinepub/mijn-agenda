@@ -92,6 +92,7 @@ export class ExternalBlob {
 export type DateKey = string;
 export interface EventInput {
     title: string;
+    color?: string;
     description?: string;
 }
 export type EventId = bigint;
@@ -103,6 +104,7 @@ export interface Event {
     id: EventId;
     title: string;
     createdAt: bigint;
+    color?: string;
     description?: string;
 }
 export interface backendInterface {
@@ -184,17 +186,20 @@ function from_candid_record_n5(_uploadFile: (file: ExternalBlob) => Promise<Uint
     id: _EventId;
     title: string;
     createdAt: bigint;
+    color: [] | [string];
     description: [] | [string];
 }): {
     id: EventId;
     title: string;
     createdAt: bigint;
+    color?: string;
     description?: string;
 } {
     return {
         id: value.id,
         title: value.title,
         createdAt: value.createdAt,
+        color: record_opt_to_undefined(from_candid_opt_n6(_uploadFile, _downloadFile, value.color)),
         description: record_opt_to_undefined(from_candid_opt_n6(_uploadFile, _downloadFile, value.description))
     };
 }
@@ -221,13 +226,16 @@ function to_candid_EventInput_n1(_uploadFile: (file: ExternalBlob) => Promise<Ui
 }
 function to_candid_record_n2(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: {
     title: string;
+    color?: string;
     description?: string;
 }): {
     title: string;
+    color: [] | [string];
     description: [] | [string];
 } {
     return {
         title: value.title,
+        color: value.color ? candid_some(value.color) : candid_none(),
         description: value.description ? candid_some(value.description) : candid_none()
     };
 }

@@ -1,11 +1,13 @@
 type EventInput = 
  record {
+   color: opt text;
    description: opt text;
    title: text;
  };
 type EventId = nat;
 type Event = 
  record {
+   color: opt text;
    createdAt: int;
    description: opt text;
    id: EventId;

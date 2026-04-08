@@ -10,6 +10,7 @@ export type Option<T> = Some<T> | None;
 export type DateKey = string;
 export interface EventInput {
     title: string;
+    color?: string;
     description?: string;
 }
 export type EventId = bigint;
@@ -21,6 +22,7 @@ export interface Event {
     id: EventId;
     title: string;
     createdAt: bigint;
+    color?: string;
     description?: string;
 }
 export interface backendInterface {

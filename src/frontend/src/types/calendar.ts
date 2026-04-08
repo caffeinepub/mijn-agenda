@@ -3,16 +3,20 @@ export type DateKey = string;
 
 export type EventId = bigint;
 
+export type EventColor = "green" | "orange" | "red";
+
 export interface Event {
   id: EventId;
   title: string;
-  description: string | null;
+  description?: string;
+  color?: EventColor;
   createdAt: bigint;
 }
 
 export interface EventInput {
   title: string;
-  description: string | null;
+  description?: string;
+  color?: EventColor;
 }
 
 export interface CalendarDay {

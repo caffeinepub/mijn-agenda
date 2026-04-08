@@ -11,7 +11,7 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { Textarea } from "@/components/ui/textarea";
 import { useCalendar } from "@/hooks/useCalendar";
 import { useAddEvent, useDeleteEvent, useMonthEvents } from "@/hooks/useEvents";
-import type { DateKey, Event } from "@/types/calendar";
+import type { DateKey, Event, EventColor } from "@/types/calendar";
 import { Calendar, ChevronLeft, ChevronRight, Plus, X } from "lucide-react";
 import { useState } from "react";
 import { toast } from "sonner";
@@ -33,6 +33,39 @@ const DUTCH_MONTHS = [
 
 const DUTCH_DAYS_SHORT = ["Ma", "Di", "Wo", "Do", "Vr", "Za", "Zo"];
 
+const COLOR_OPTIONS: {
+  value: EventColor;
+  label: string;
+  dot: string;
+  ring: string;
+}[] = [
+  {
+    value: "green",
+    label: "Normaal",
+    dot: "bg-emerald-500",
+    ring: "ring-emerald-500",
+  },
+  {
+    value: "orange",
+    label: "Belangrijk",
+    dot: "bg-orange-500",
+    ring: "ring-orange-500",
+  },
+  { value: "red", label: "Urgent", dot: "bg-red-500", ring: "ring-red-500" },
+];
+
+const EVENT_COLOR_DOT: Record<EventColor, string> = {
+  green: "bg-emerald-500",
+  orange: "bg-orange-500",
+  red: "bg-red-500",
+};
+
+const EVENT_COLOR_BORDER: Record<EventColor, string> = {
+  green: "border-l-emerald-500",
+  orange: "border-l-orange-500",
+  red: "border-l-red-500",
+};
+
 interface AddEventDialogProps {
   dateKey: DateKey;
   displayDate: string;
@@ -50,6 +83,7 @@ function AddEventDialog({
 }: AddEventDialogProps) {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
+  const [color, setColor] = useState<EventColor>("green");
   const addEvent = useAddEvent(year, month);
 
   async function handleSubmit(e: React.FormEvent) {
@@ -58,7 +92,11 @@ function AddEventDialog({
     try {
       await addEvent.mutateAsync({
         dateKey,
-        input: { title: title.trim(), description: description.trim() || null },
+        input: {
+          title: title.trim(),
+          description: description.trim() || undefined,
+          color,
+        },
       });
       toast.success("Afspraak toegevoegd");
       onClose();
@@ -87,6 +125,34 @@ function AddEventDialog({
               data-ocid="event-title-input"
             />
           </div>
+
+          <div className="flex flex-col gap-1.5">
+            <Label>Prioriteit</Label>
+            <div className="flex gap-2" data-ocid="event-color-picker">
+              {COLOR_OPTIONS.map((opt) => (
+                <button
+                  key={opt.value}
+                  type="button"
+                  onClick={() => setColor(opt.value)}
+                  className={[
+                    "flex items-center gap-2 flex-1 px-3 py-2 rounded-lg border text-xs font-medium transition-all duration-150",
+                    color === opt.value
+                      ? `border-transparent ring-2 ${opt.ring} bg-muted`
+                      : "border-border bg-card hover:bg-muted/60 text-muted-foreground",
+                  ].join(" ")}
+                  aria-pressed={color === opt.value}
+                  aria-label={opt.label}
+                  data-ocid={`color-option-${opt.value}`}
+                >
+                  <span
+                    className={`w-2.5 h-2.5 rounded-full flex-shrink-0 ${opt.dot}`}
+                  />
+                  {opt.label}
+                </button>
+              ))}
+            </div>
+          </div>
+
           <div className="flex flex-col gap-1.5">
             <Label htmlFor="event-desc">Notitie (optioneel)</Label>
             <Textarea
@@ -192,9 +258,17 @@ function DayCell({
           {events.slice(0, 3).map((ev) => (
             <div
               key={String(ev.id)}
-              className="pointer-events-auto group/ev flex items-center gap-1 text-xs leading-tight"
+              className={[
+                "pointer-events-auto group/ev flex items-center gap-1 text-xs leading-tight pl-1.5 border-l-2 rounded-sm",
+                EVENT_COLOR_BORDER[ev.color ?? "green"],
+              ].join(" ")}
             >
-              <span className="w-1 h-1 rounded-full bg-accent flex-shrink-0" />
+              <span
+                className={[
+                  "w-1 h-1 rounded-full flex-shrink-0",
+                  EVENT_COLOR_DOT[ev.color ?? "green"],
+                ].join(" ")}
+              />
               <span className="truncate flex-1 text-foreground/80">
                 {ev.title}
               </span>

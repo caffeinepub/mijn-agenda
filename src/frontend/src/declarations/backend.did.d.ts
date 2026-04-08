@@ -16,10 +16,15 @@ export interface Event {
   'id' : EventId,
   'title' : string,
   'createdAt' : bigint,
+  'color' : [] | [string],
   'description' : [] | [string],
 }
 export type EventId = bigint;
-export interface EventInput { 'title' : string, 'description' : [] | [string] }
+export interface EventInput {
+  'title' : string,
+  'color' : [] | [string],
+  'description' : [] | [string],
+}
 export interface _SERVICE {
   'addEvent' : ActorMethod<[DateKey, EventInput], EventId>,
   'deleteEvent' : ActorMethod<[EventId], undefined>,

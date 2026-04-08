@@ -5,6 +5,7 @@ type DateKey__160924750 = Text;
 type EventId__721739344 = Nat;
 type Event__543096582 =
   {
+    color : ?Text;
     createdAt : Int;
     description : ?Text;
     id : EventId__721739344;

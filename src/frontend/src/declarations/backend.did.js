@@ -11,6 +11,7 @@ import { IDL } from '@icp-sdk/core/candid';
 export const DateKey = IDL.Text;
 export const EventInput = IDL.Record({
   'title' : IDL.Text,
+  'color' : IDL.Opt(IDL.Text),
   'description' : IDL.Opt(IDL.Text),
 });
 export const EventId = IDL.Nat;
@@ -18,6 +19,7 @@ export const Event = IDL.Record({
   'id' : EventId,
   'title' : IDL.Text,
   'createdAt' : IDL.Int,
+  'color' : IDL.Opt(IDL.Text),
   'description' : IDL.Opt(IDL.Text),
 });
 export const DayEvents = IDL.Record({
@@ -42,6 +44,7 @@ export const idlFactory = ({ IDL }) => {
   const DateKey = IDL.Text;
   const EventInput = IDL.Record({
     'title' : IDL.Text,
+    'color' : IDL.Opt(IDL.Text),
     'description' : IDL.Opt(IDL.Text),
   });
   const EventId = IDL.Nat;
@@ -49,6 +52,7 @@ export const idlFactory = ({ IDL }) => {
     'id' : EventId,
     'title' : IDL.Text,
     'createdAt' : IDL.Int,
+    'color' : IDL.Opt(IDL.Text),
     'description' : IDL.Opt(IDL.Text),
   });
   const DayEvents = IDL.Record({
